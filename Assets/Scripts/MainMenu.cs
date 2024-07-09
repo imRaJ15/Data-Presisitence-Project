@@ -5,7 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] TMP_Text highScoreText;
+    [SerializeField] TMP_Text scoreListText;
+
+    [SerializeField] List<Player> players = new List<Player>();
+
     public static MainMenu instance;
 
     public string _currentPlayerName;
@@ -20,38 +23,46 @@ public class MainMenu : MonoBehaviour
         else { Destroy(gameObject);  return; }
     }
 
-    void Start()
+    private void Start()
     {
-        DisplayHighScores();
+        players.Sort((p1, p2) => p2.Score.CompareTo(p1.Score));
+
+        DisplayScores();
     }
-
-    void DisplayHighScores()
+    public void DisplayScores()
     {
-        // Retrieve all player names and scores
-        List<KeyValuePair<string, int>> scores = new List<KeyValuePair<string, int>>();
+        // Clear existing text
+        scoreListText.text = "";
 
-        foreach (string key in PlayerPrefs.GetString("PlayerName"))
+        // Display sorted players in the text box
+        foreach (Player player in players)
         {
-            int score = PlayerPrefs.GetInt(key, 0);
-            scores.Add(new KeyValuePair<string, int>(key, score));
-        }
-
-        // Sort scores in descending order
-        scores.Sort((x, y) => y.Value.CompareTo(x.Value));
-
-        // Display scores in TMP_Text
-        highScoreText.text = "High Scores:\n";
-        foreach (var score in scores)
-        {
-            highScoreText.text += score.Key + ": " + score.Value + "\n";
+            scoreListText.text += player.Name + ": " + player.Score + "\n";
         }
     }
-
-    public void GetNameString(string s)
+    public void AddPlayer(string name, int initialScore)
     {
-        _currentPlayerName = s;
+        players.Add(new Player(name, initialScore));
     }
 
-    public void StartGame()
-    { SceneManager.LoadScene("main"); }
+    public void UpdateScore(string name, int newScore)
+    {
+        Player player = players.Find(p => p.Name == name);
+        if (player != null)
+        {
+            player.Score = newScore;
+        }
+        else
+        {
+            Debug.LogWarning("Player not found: " + name);
+        }
+    }
+
+    public void PrintAllPlayers()
+    {
+        foreach (Player player in players)
+        {
+            Debug.Log("Player: " + player.Name + ", Score: " + player.Score);
+        }
+    }
 }

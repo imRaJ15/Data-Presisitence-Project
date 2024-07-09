@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -63,6 +61,12 @@ public class MainManager : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
+
+            if (Input.GetKeyDown(KeyCode.Escape)) 
+            {
+                SceneManager.LoadScene("MainMenu");
+                MainMenu.instance._currentPlayerName = null;
+            }
         }
     }
 
@@ -76,8 +80,8 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
-        PlayerPrefs.SetString("PlayerName", currentPlayerName);
-        PlayerPrefs.SetInt("PlayerScore", m_Points);
-        PlayerPrefs.Save();
+        MainMenu.instance.AddPlayer(currentPlayerName, m_Points);
+        MainMenu.instance.UpdateScore(currentPlayerName, m_Points);
+        MainMenu.instance.PrintAllPlayers();
     }
 }

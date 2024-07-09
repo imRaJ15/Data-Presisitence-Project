@@ -865,6 +865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77cfd24dd2959bf498d31f888371a990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreListText: {fileID: 1181818089}
   _currentPlayerName: 
 --- !u!4 &1080759750
 Transform:
@@ -1234,8 +1235,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1080759749}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 1938572135}
+        m_TargetAssemblyTypeName: StartGame, Assembly-CSharp
         m_MethodName: GetNameString
         m_Mode: 0
         m_Arguments:
@@ -1403,9 +1404,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1080759749}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: StartGame
+      - m_Target: {fileID: 1938572135}
+        m_TargetAssemblyTypeName: StartGame, Assembly-CSharp
+        m_MethodName: StartGameButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1599,6 +1600,8 @@ GameObject:
   - component: {fileID: 1938572133}
   - component: {fileID: 1938572132}
   - component: {fileID: 1938572131}
+  - component: {fileID: 1938572136}
+  - component: {fileID: 1938572135}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1690,6 +1693,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1938572135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938572130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fd5eccf4346ee242808c641187cd5fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!222 &1938572136
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938572130}
+  m_CullTransparentMesh: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
