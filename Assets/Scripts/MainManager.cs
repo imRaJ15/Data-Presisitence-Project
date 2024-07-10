@@ -37,7 +37,7 @@ public class MainManager : MonoBehaviour
             }
         }
 
-        currentPlayerName = MainMenu.instance._currentPlayerName;
+        currentPlayerName = MainMenu.Instance._currentPlayerName;
     }
 
     private void Update()
@@ -65,7 +65,7 @@ public class MainManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape)) 
             {
                 SceneManager.LoadScene("MainMenu");
-                MainMenu.instance._currentPlayerName = null;
+                MainMenu.Instance._currentPlayerName = null;
             }
         }
     }
@@ -80,8 +80,7 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
-        MainMenu.instance.AddPlayer(currentPlayerName, m_Points);
-        MainMenu.instance.UpdateScore(currentPlayerName, m_Points);
-        MainMenu.instance.PrintAllPlayers();
+        MainMenu.Instance.AddPlayer(currentPlayerName, m_Points);
+        MainMenu.Instance.UpdateScore(currentPlayerName, m_Points);
     }
 }

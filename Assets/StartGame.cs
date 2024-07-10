@@ -1,19 +1,24 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour
 {
-    //public string currentPlayerName;
+    [SerializeField] TMP_Text scoreListText;
 
-    void Start()
+    private void Start()
     {
-        //currentPlayerName = null;
+        if (MainMenu.Instance != null)
+        {
+            MainMenu.Instance.AssignScoreListText(scoreListText);
+        }
     }
+
     public void StartGameButton()
     { SceneManager.LoadScene("main"); }
 
     public void GetNameString(string s)
     {
-        MainMenu.instance._currentPlayerName = s;
+        MainMenu.Instance._currentPlayerName = s;
     }
 }
