@@ -8,7 +8,7 @@ public class MainManager : MonoBehaviour
     public int LineCount = 6;
     public Rigidbody Ball;
 
-    public Text ScoreText;
+    public Text ScoreText, bestScoreText;
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -68,6 +68,8 @@ public class MainManager : MonoBehaviour
                 MainMenu.Instance._currentPlayerName = null;
             }
         }
+
+        bestScoreText.text = "Best Score " + MainMenu.Instance.players[0].Name + " : " + MainMenu.Instance.players[0].Score;
     }
 
     void AddPoint(int point)

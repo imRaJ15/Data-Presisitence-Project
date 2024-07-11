@@ -11,7 +11,7 @@ public class MainMenu : MonoBehaviour
 
     public string _currentPlayerName;
 
-    private List<Player> players = new List<Player>();
+    public List<Player> players = new List<Player>();
 
     private string saveFilePath;
 
@@ -21,8 +21,7 @@ public class MainMenu : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            saveFilePath = Path.Combine(Application.persistentDataPath, "path/to/PlayerData.json");
-            Debug.Log("Save file path: " + saveFilePath);
+            saveFilePath = Path.Combine(Application.persistentDataPath, "playerData.json");
         }
         else
         {
@@ -44,8 +43,15 @@ public class MainMenu : MonoBehaviour
 
     public void AddPlayer(string name, int initialScore)
     {
-        players.Add(new Player(name, initialScore));
-        Debug.Log("Added player: " + name + " with score: " + initialScore);
+        Player existingPlayer = players.Find(p => p.Name == name);
+        if (existingPlayer != null)
+        {
+            existingPlayer.Score = initialScore;
+        }
+        else
+        {
+            players.Add(new Player(name, initialScore));
+        }
         SortPlayersByScore();
         DisplayScores();
     }
@@ -62,6 +68,8 @@ public class MainMenu : MonoBehaviour
         if (player != null)
         {
             player.Score = newScore;
+            SortPlayersByScore();
+            DisplayScores();
         }
         else
         {
@@ -92,8 +100,7 @@ public class MainMenu : MonoBehaviour
         if (players == null) return;
 
         PlayerData playerData = new PlayerData(players);
-        string json = JsonUtility.ToJson(playerData);
-        Debug.Log("Saving data: " + json); // Debug log for saving data
+        string json = JsonUtility.ToJson(playerData, true);
         File.WriteAllText(saveFilePath, json);
     }
 
@@ -102,22 +109,18 @@ public class MainMenu : MonoBehaviour
         if (File.Exists(saveFilePath))
         {
             string json = File.ReadAllText(saveFilePath);
-            Debug.Log("Loading data: " + json);
             PlayerData playerData = JsonUtility.FromJson<PlayerData>(json);
             if (playerData != null && playerData.players != null)
             {
                 players = playerData.players;
-                Debug.Log("Loaded players count: " + players.Count);
             }
             else
             {
-                Debug.LogWarning("Player data or player list is null");
                 players = new List<Player>();
             }
         }
         else
         {
-            Debug.LogWarning("Save file not found, initializing new player list");
             players = new List<Player>();
         }
     }

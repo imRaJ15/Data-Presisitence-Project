@@ -1,9 +1,8 @@
-using UnityEngine;
-
+[System.Serializable]
 public class Player
 {
-    public string Name { get; set; }
-    public int Score { get; set; }
+    public string Name;
+    public int Score;
 
     public Player(string name, int score)
     {
